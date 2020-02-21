@@ -1,0 +1,3 @@
+-call s:X("CursorLine","","1c1c1c","","",s:termBlack)
++call s:X("Boolean","ff5500","","","Red","")
++call s:X("CursorLine","","262626","","",s:termBlack)
