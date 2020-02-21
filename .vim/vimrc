@@ -1,0 +1,124 @@
+set nocompatible              " be iMproved, required
+
+""" VUNDLE BEGIN
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+""" My Plugins/Bndles
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'bash-support.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'godlygeek/tabular'
+Plugin 'fatih/vim-go'
+Plugin 'Shougo/neosnippet.vim'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'rodjek/vim-puppet'
+Plugin 'scrooloose/nerdtree'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" Airline BEGIN
+set laststatus=2
+let g:airline_powerline_fonts = 1
+" Airline END
+
+" neocomplete BEGIN
+let g:neocomplete#enable_at_startup = 1
+set completeopt-=preview
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" neocomplete END
+
+" tags BEGIN
+"http://western-skies.blogspot.de/2013/05/ctags-for-puppet-three-previously.html
+set iskeyword=-,:,@,48-57,_,192-255
+if has("autocmd")
+  :autocmd BufWritePost * silent !cd ~/.vim ; ctags-exuberant -R <Code base dir>
+endif
+set tags=<PUT HOME HERE>/.vim/tags
+nnoremap ü <C-]>
+nnoremap Ü <C-O>
+" tags END
+
+set tabstop=2 shiftwidth=2 expandtab
+set autoindent
+set scrolloff=5
+set relativenumber
+set number
+set cursorline
+colorscheme jellybeans
+
+" ultisnip
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" show special chars BEGIN
+set listchars=tab:>-,trail:~,extends:>,precedes:<
+" show special chars END
+
+" Shellcheck
+let g:syntastic_sh_checkers = ['shellcheck', 'sh']
+let g:syntastic_sh_checkers = ['shellcheck', 'sh.erb']
+
+set list
+set hlsearch
+
+" better vim
+nmap di, f,dT,
+nmap ci, f,cT,
+nmap di. f.dT.
+nmap ci. f.cT.
+:inoremap <S-Tab> <C-V><Tab>
+
+au BufRead,BufNewFile *.pl.erb setfiletype perl
+au BufRead,BufNewFile *.sh.erb setfiletype sh
+au BufRead,BufNewFile *.xml.erb setfiletype xml
+au BufRead,BufNewFile *.ini.erb setfiletype ini
+au BufRead,BufNewFile *.conf.erb setfiletype text
+au BufRead,BufNewFile *.cnf.erb setfiletype text
+au BufRead,BufNewFile *.py.erb setfiletype python
+au BufRead,BufNewFile *.php.erb setfiletype php
+au BufRead,BufNewFile *workers.properties.erb setfiletype jproperties
+au BufRead,BufNewFile COMMIT_EDITMSG setlocal cc=72
+
+let $BASH_ENV = "~/.bash_aliases"
+
+" Highlight characters after the 80th character
+" https://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
+
+hi ColorColumn ctermbg=6 guibg=6
+
+" Color fix for tmux
+" https://askubuntu.com/questions/125526/vim-in-tmux-display-wrong-colors
+set term=screen-256color
+
+" Disable vim-go warning of older version
+let g:go_version_warning = 0
