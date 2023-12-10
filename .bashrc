@@ -5,14 +5,22 @@ shopt -s histappend
 ## update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-HISTSIZE=50000                                                                                                                                                                                 
+HISTCONTROL=ignoreboth
 HISTFILESIZE=10000
+HISTSIZE=50000
 HISTTIMEFORMAT='%F %T'
-                                                                                                                                                                                              
-EDITOR=/usr/bin/vim  
+
+EDITOR=/usr/bin/vim
 
 ## More Colors                                                                                                                                                                                 
 export TERM='xterm-256color'
+
+# set a fancy prompt (non-color, unless we know we "want" color)                                                                                                                                                                                               
+case "$TERM" in                                                                                                                                                                                                                                                
+    xterm-color|*-256color) color_prompt=yes;;                                                                                                                                                                                                                 
+esac                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                               
+force_color_prompt=yes
 
 ## make less more friendly for non-text input files, see lesspipe(1)                                                                                                                           
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -125,3 +133,18 @@ delete_lines () {
   return 0                                                                                                                                                                                    
 }
 
+export LANG="en_US.UTF-8"                                                                                                                                                                                                                                      
+export LANGUAGE="en"                                                                                                                                                                                                                                           
+export LC_CTYPE="en_US.UTF-8"                                                                                                                                                                                                                                  
+export LC_NUMERIC="en_US.UTF-8"                                                                                                                                                                                                                                
+export LC_TIME="en_US.UTF-8"                                                                                                                                                                                                                                   
+export LC_COLLATE="en_US.UTF-8"                                                                                                                                                                                                                                
+export LC_MESSAGES="en_US.UTF-8"                                                                                                                                                                                                                               
+export LC_MONETARY="en_US.UTF-8"                                                                                                                                                                                                                               
+export LC_PAPER="en_US.UTF-8"                                                                                                                                                                                                                                  
+export LC_NAME="en_US.UTF-8"                                                                                                                                                                                                                                   
+export LC_ADDRESS="en_US.UTF-8"                                                                                                                                                                                                                                
+export LC_TELEPHONE="en_US.UTF-8"                                                                                                                                                                                                                              
+export LC_MEASUREMENT="en_US.UTF-8"                                                                                                                                                                                                                            
+export LC_IDENTIFICATION="en_US.UTF-8"                                                                                                                                                                                                                         
+export LC_ALL=
