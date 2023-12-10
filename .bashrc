@@ -83,6 +83,9 @@ git_prompt () {
       PS1="\[$(tput setaf 5)\](${git_branch}):\w\$ \[$(tput setaf 0)\]\[$(tput sgr0)\]"
     fi
   else
+    if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+      debian_chroot=$(cat /etc/debian_chroot)
+    fi
     #PS1="$ORIG_PROMPT"
     PS1="\[$(tput setaf 6)\][$(date +%H:%M:%S)] ${debian_chroot:+($debian_chroot)}\u@\h:\w$ \[$(tput setaf 0)\]\[$(tput sgr0)\]"
   fi
